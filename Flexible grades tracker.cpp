@@ -24,11 +24,14 @@ int main() {
 	}
 
 	cout << endl;
+
+	double totalSum = 0;
 	
 	for (int i = 0; i < numStudent; i++) {
 		int studentSum = 0;
 		for (int j = 0; j < numSubject; j++) {
 			studentSum += grades[i][j];
+			totalSum += grades[i][j];
 		}
 		cout << "Student " << i + 1 << " total: "<< studentSum << endl;
 	
@@ -46,6 +49,12 @@ int main() {
 		double sbjAve = static_cast<double>(subjectSum) / numStudent;
 	cout << "Subject " << j + 1 << " average: " << fixed << setprecision(2) << sbjAve << endl;
 	}
+
+	cout << endl;
+	
+	double classAve = totalSum / (numStudent * numSubject);
+	
+	cout << "Class Average: " << classAve << endl;
 	
 	return 0;
 }
