@@ -14,6 +14,10 @@ int main() {
 	cin >> numSubject;
 
 	vector<vector<float>> grades(numStudent, vector<float> (numSubject));
+
+	int maxNum = grades[0][0];
+	int maxStd = 0;
+	int maxSbj = 0;
 	
 	for (int i = 0; i < numStudent; i++) {
 		cout << "Enter student's grades:" << i + 1 << endl;
@@ -55,6 +59,18 @@ int main() {
 	double classAve = totalSum / (numStudent * numSubject);
 	
 	cout << "Class Average: " << classAve << endl;
+
+	for (int i = 0; i < numStudent; i++) {
+		for (int j = 0; j < numSubject; j++) {
+			if (grades[i][j] > maxNum) {
+				maxNum = grades[i][j];
+				maxStd = i;
+				maxSbj = j;
+			}
+		}
+	}
+	
+	cout << "Highest grade is: " << maxNum << " from student " << maxStd + 1 << ", subject " << maxSbj + 1;
 	
 	return 0;
 }
