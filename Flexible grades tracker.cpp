@@ -131,6 +131,32 @@ int main() {
 	cout << "Class Average: " << fixed << setprecision(2) << classAve << endl;
 	}
 		break;
+    case 6:
+	{
+		bool found = false;
+		for (int i = 0; i < numStudent; i++) {
+			double studentSum = 0;
+			
+			for (int j = 0; j < numSubject; j++) {
+				
+				studentSum += grades[i][j];
+			}
+				
+				double studentAve = studentSum / numSubject;
+	
+			if (studentAve < 65) {
+				if (!found) {
+					cout << "Failed Student" << endl;
+					found = true;
+				}
+				cout << "Student " << i + 1 << ": " << fixed << setprecision(2) << studentAve << endl;
+			}
+		}
+		if (!found) {
+				cout << "No student failed. Everyone passed." << endl;
+			}
+	}
+	   break;
 	case 0:
 		cout << endl;
 		cout << "Goodbye!!" << endl;
@@ -139,7 +165,7 @@ int main() {
 	default:
 			  	cout << "Invalid choice" << endl;
 		}
-	} while (choice != 5);
+	} while (choice != 7);
 	
 	return 0;
 }
