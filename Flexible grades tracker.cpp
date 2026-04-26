@@ -55,6 +55,8 @@ int main() {
 		cout << "3. Show subject averages" << endl;
 		cout << "4. Show highest grade" << endl;
 		cout << "5. Show class average" << endl;
+		cout << "6. Display the failing students" << endl;
+		cout << "7. Display positions" << endl;
 		cout << "0. Exit" << endl;
 		
 		cout << endl;
@@ -157,6 +159,27 @@ int main() {
 			}
 	}
 	   break;
+	case 7:
+		for (int i = 0; i < numStudent; i++) {
+			  	char positions;
+			  	cout << "Student " << i + 1 << ": ";
+			  	for (int j = 0; j < numSubject; j++) {
+			  		if (grades[i][j] >= 90) positions = 'A';
+				else if (grades[i][j] >= 80) positions = 'B';
+				else if (grades[i][j] >= 70) positions = 'C';
+				else if (grades[i][j] >= 60) positions = 'D';
+				else if (grades[i][j] >= 50) positions = 'E';
+				else positions = 'F';
+			
+			  		cout << positions;
+			  		
+			  	if (j < numSubject - 1) {
+			  		cout << ", ";
+			  	}
+			 }
+			 cout << endl;
+		}
+		break;
 	case 0:
 		cout << endl;
 		cout << "Goodbye!!" << endl;
@@ -165,7 +188,7 @@ int main() {
 	default:
 			  	cout << "Invalid choice" << endl;
 		}
-	} while (choice != 7);
+	} while (choice != 8);
 	
 	return 0;
 }
