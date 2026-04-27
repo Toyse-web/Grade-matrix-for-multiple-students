@@ -180,6 +180,32 @@ int main() {
 			 cout << endl;
 		}
 		break;
+	case 8:
+	{
+		vector<pair<double, int>> studentAve;
+		
+		for (int i = 0; i < numStudent; i++) {
+			int sum = 0;
+			for (int j = 0; j < numSubject; j++) {
+				sum += grades[i][j];
+			}
+			double avg = sum / numSubject;
+			studentAve.push_back({avg, i});
+		}
+		
+		sort(studentAve.begin(), studentAve.end(), greater<pair<double, int>>());
+		
+		cout << "Students sorted by average (descending):" << endl;
+		
+		for (auto &av : studentAve) {
+			double avg = av.first;
+			int stdIndex = av.second;
+			cout << "Student " << stdIndex + 1 << ": " << fixed << setprecision(2) << avg << endl;
+		}
+		
+		cout << endl;
+	}
+			break;
 	case 0:
 		cout << endl;
 		cout << "Goodbye!!" << endl;
