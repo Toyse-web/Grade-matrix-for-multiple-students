@@ -57,6 +57,7 @@ int main() {
 		cout << "5. Show class average" << endl;
 		cout << "6. Display the failing students" << endl;
 		cout << "7. Display positions" << endl;
+		cout << "8. Sort grades" << endl;
 		cout << "0. Exit" << endl;
 		
 		cout << endl;
@@ -214,7 +215,7 @@ int main() {
 	default:
 			  	cout << "Invalid choice" << endl;
 		}
-	} while (choice != 8);
+	} while (choice != 9);
 	
 	return 0;
 }
