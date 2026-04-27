@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -15,17 +16,6 @@ int main() {
 	cin >> numSubject;
 	
 	vector<vector<int>> grades(numStudent, vector<int> (numSubject));
-	
-	for (int i = 0; i < numStudent; i++) {
-		for (int j = 0; j < numSubject; j++) {
-			if (grades[i][j] > 100) {
-				grades[i][j] = 100;
-			}
-			if (grades[i][j] < 0) {
-				grades[i][j] = 0;
-			}
-		}
-	}
 	
 	int maxNum = grades[0][0];
 	int maxStd = 0;
@@ -44,6 +34,17 @@ int main() {
 		}
 	}
 	
+	for (int i = 0; i < numStudent; i++) {
+		for (int j = 0; j < numSubject; j++) {
+			if (grades[i][j] > 100) {
+				grades[i][j] = 100;
+			}
+			if (grades[i][j] < 0) {
+				grades[i][j] = 0;
+			}
+		}
+	}
+	
 	cout << endl;
 	
 	int choice;
@@ -55,7 +56,7 @@ int main() {
 		cout << "3. Show subject averages" << endl;
 		cout << "4. Show highest grade" << endl;
 		cout << "5. Show class average" << endl;
-		cout << "6. Display the failing students" << endl;
+		cout << "6. Display the failing student" << endl;
 		cout << "7. Display positions" << endl;
 		cout << "8. Sort grades" << endl;
 		cout << "0. Exit" << endl;
@@ -90,7 +91,6 @@ int main() {
 		int studentSum = 0;
 		for (int j = 0; j < numSubject; j++) {
 			studentSum += grades[i][j];
-			totalSum += grades[i][j];
 		}
 		cout << "Student " << i + 1 << " total: "<< studentSum << endl;
 	
@@ -109,6 +109,118 @@ int main() {
 		double sbjAve = static_cast<double>(subjectSum) / numStudent;
 	cout << "Subject " << j + 1 << " average: " << fixed << setprecision(2) << sbjAve << endl;
 	}
+		break;
+	case 4:
+		for (int i = 0; i < numStudent; i++) {
+		for (int j = 0; j < numSubject; j++) {
+			if (grades[i][j] > maxNum) {
+				maxNum = grades[i][j];
+				maxStd = i;
+				maxSbj = j;
+			}
+		}
+	}
+	
+	cout << "Highest grade is: " << maxNum << " from student " << maxStd + 1 << ", subject " << maxSbj + 1 << endl;
+		break;
+	case 5: {
+		for (int i = 0; i < numStudent; i++) {
+			double totalSum = 0;
+			for (int j = 0; j < numSubject; j++) {
+				totalSum += grades[i][j];
+				}
+		}
+		double classAve = totalSum / (numStudent * numSubject);
+	
+	cout << "Class Average: " << fixed << setprecision(2) << classAve << endl;
+	}
+		break;
+	case 6:
+	{
+		bool found = false;
+		for (int i = 0; i < numStudent; i++) {
+			double studentSum = 0;
+			
+			for (int j = 0; j < numSubject; j++) {
+				
+				studentSum += grades[i][j];
+			}
+				
+				double studentAve = studentSum / numSubject;
+	
+			if (studentAve < 65) {
+				if (!found) {
+					cout << "Failed Student" << endl;
+					found = true;
+				}
+				cout << "Student " << i + 1 << ": " << fixed << setprecision(2) << studentAve << endl;
+			}
+		}
+		if (!found) {
+				cout << "No student failed. Everyone passed." << endl;
+			}
+			cout << endl;
+	}
+		break;
+	case 7:
+		for (int i = 0; i < numStudent; i++) {
+			  	char positions;
+			  	cout << "Student " << i + 1 << ": ";
+			  	for (int j = 0; j < numSubject; j++) {
+			  		if (grades[i][j] >= 90) positions = 'A';
+				else if (grades[i][j] >= 80) positions = 'B';
+				else if (grades[i][j] >= 70) positions = 'C';
+				else if (grades[i][j] >= 60) positions = 'D';
+				else if (grades[i][j] >= 50) positions = 'E';
+				else positions = 'F';
+			
+			  		cout << positions;
+			  		
+			  	if (j < numSubject - 1) {
+			  		cout << ", ";
+			  	}
+			 }
+			 cout << endl;
+		}
+		break;
+	case 8:
+	{
+		vector<pair<double, int>> studentAve;
+		
+		for (int i = 0; i < numStudent; i++) {
+			int sum = 0;
+			for (int j = 0; j < numSubject; j++) {
+				sum += grades[i][j];
+			}
+			double avg = sum / numSubject;
+			studentAve.push_back({avg, i});
+		}
+		
+		sort(studentAve.begin(), studentAve.end(), greater<pair<double, int>>());
+		
+		cout << "Students sorted by average (descending):" << endl;
+		
+		for (auto &av : studentAve) {
+			double avg = av.first;
+			int stdIndex = av.second;
+			cout << "Student " << stdIndex + 1 << ": " << fixed << setprecision(2) << avg << endl;
+		}
+		
+		cout << endl;
+		}
+		break;
+	case 0:
+		cout << endl;
+		cout << "Goodbye!!" << endl;
+		return 0;
+		break;
+	default:
+			  	cout << "Invalid choice" << endl;
+		}
+	} while (choice != 0);
+	
+	return 0;
+}	}
 		break;
 	case 4:
 		for (int i = 0; i < numStudent; i++) {
